@@ -22,4 +22,11 @@ export default class UserRepository implements IUserRepository {
     
     return user as unknown as IUser
   }
+
+  public async findById(userId: number): Promise<IUser | undefined> {
+    const user = await User.findOne({ where: { id: userId }, attributes: { exclude: ["password"] } })
+
+    return user as unknown as IUser
+  }
+
 }

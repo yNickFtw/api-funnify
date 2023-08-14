@@ -1,19 +1,22 @@
 import { Request, Response } from "express";
-
 import { IController } from "../../../shared/global/types/IController";
-import AuthenticateUserService from "../services/AuthenticateUserService";
+import { getUserIdFromToken } from "../../../shared/utils/getUserIdFromToken";
 import { container } from "tsyringe";
+import LoggedUserService from "../services/LoggedUserService";
 
-export default class AuthenticateUserController implements IController {
+
+export default class LoggedUserController implements IController {
   public async execute(req: Request, res: Response): Promise<Response> {
     try {
-      const { email, password } = req.body
- 
-      const authenticateUserService = container.resolve(AuthenticateUserService)
+      const token = req.headers["authorization"] as string
+      
+      const userId = getUserIdFromToken(token) as number
 
-      const auth = await authenticateUserService.execute({ email, password })
+      const loggedUserService = container.resolve(LoggedUserService)
 
-      return res.status(200).json({ message: "Autenticado com sucesso!", auth })
+      const user = await loggedUserService.execute(userId)
+
+      return res.status(200).json(user)
     } catch (error: any) {
       if(error.message && error.statusCode) {
         return res.status(error.statusCode).json({ message: error.message })

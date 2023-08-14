@@ -53,7 +53,7 @@ export default class AuthenticateUserService implements IAuthenticateService, IA
     if(!passwordMatch){ 
       const error: IAppError = {
         statusCode: 400,
-        message: "Preencha todos os campos!"
+        message: "Verifique se os dados estão corretos!"
       }
 
       throw error      

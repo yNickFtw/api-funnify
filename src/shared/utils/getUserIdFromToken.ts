@@ -16,7 +16,7 @@ export function getUserIdFromToken(token: string): number | null {
     }
 
     const decoded = jwt.verify(tokenParts[1], JWT_SECRET) as JwtPayload;
-    return decoded?.id || null;
+    return decoded?.userId || null;
   } catch (error: any) {
     return null;
   }
