@@ -1,7 +1,8 @@
-import { IAppError } from "../../../shared/utils";
+import { IAppError } from "../../../shared/utils/IAppError";
 import bcrypt from 'bcryptjs'
 import { IResponseJWT, generateTokenJWT } from "../../../shared/global/generateToken";
 import { IUserRepository } from "../types/interfaces";
+import { inject, injectable } from "tsyringe";
 
 interface IRequest {
   email: string;
@@ -12,11 +13,16 @@ export interface IAuthenticateService {
   execute: ({ email, password }: IRequest) => Promise<IResponseJWT | IAppError>
 }
 
+@injectable()
 export default class AuthenticateUserService implements IAuthenticateService, IAppError {
   statusCode: number
   message: string
   
-  constructor(private repository: IUserRepository) {
+  constructor(
+    @inject("UserRepository")
+    private repository: IUserRepository
+    ) 
+  {
     this.statusCode = 400,
     this.message = ""
   }
@@ -38,6 +44,8 @@ export default class AuthenticateUserService implements IAuthenticateService, IA
         statusCode: 404,
         message: "Verifique se os dados estão corretos!"
       }
+
+      throw error
     }
 
     const passwordMatch = await bcrypt.compare(password, user?.password!)

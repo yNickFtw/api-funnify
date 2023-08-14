@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+import "./shared/container"
 import express from 'express'
 import cors from 'cors'
 import sequelize from './db/config'

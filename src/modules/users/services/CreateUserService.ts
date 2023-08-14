@@ -1,6 +1,7 @@
 import bcrypt from 'bcryptjs'
-import { IAppError } from "../../../shared/utils";
+import { IAppError } from "../../../shared/utils/IAppError";
 import { IUserRepository } from '../types/interfaces';
+import { injectable, inject } from 'tsyringe';
 
 interface IRequest {
   username: string;
@@ -13,11 +14,15 @@ export interface ICreateUserService {
   execute: ({ username, email, password, confirmPassword }: IRequest) => Promise<void>
 }
 
+@injectable()
 export default class CreateUserService implements ICreateUserService, IAppError {  
   statusCode: number;
   message: string;
 
-  constructor( private repository: IUserRepository) {
+  constructor( 
+    @inject("UserRepository")
+    private repository: IUserRepository)
+    {
     this.message = ""
     this.statusCode = 0
   }

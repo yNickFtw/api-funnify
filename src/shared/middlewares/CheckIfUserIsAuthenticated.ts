@@ -22,8 +22,6 @@ export function checkIfIsAuthenticate(req: Request, res: Response, next: NextFun
         .json({ message: "Token inválido, faça login novamente" });
     }
 
-    console.log(req.body);
-
     next();
   } catch (error: any) {
     return res
