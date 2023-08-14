@@ -24,13 +24,13 @@ export default class CreatePostController implements IController {
       let videoFilename: string | null = null;
 
       if (req.file) {
-        const { mimetype, filename } = req.file as any;
+        const { firebaseUrl, mimetype, filename } = req.file as any;
 
         if (mimetype.startsWith("video/")) {
-          videoUrl = filename;
+          videoUrl = firebaseUrl;
           videoFilename = filename;
         } else if (mimetype.startsWith("image/")) {
-          imageUrl = filename;
+          imageUrl = firebaseUrl;
           imageFilename = filename;
         }
       }
