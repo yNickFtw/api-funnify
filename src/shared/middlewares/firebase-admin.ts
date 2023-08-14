@@ -25,9 +25,9 @@ const uploadFile = (req: Request, res: Response, next: NextFunction) => {
   
   let prefix = '';
 
-  if (file.mimetype.startsWith('video/') && req.path.includes('/posts')) {
+  if (file.mimetype.startsWith('video/') && req.path.includes('/post')) {
     prefix = 'posts/videos/';
-  } else if (file.mimetype.startsWith('image/') && req.path.includes('/posts')) {
+  } else if (file.mimetype.startsWith('image/') && req.path.includes('/post')) {
     prefix = 'posts/images/'
   } else if (req.path.includes('/profile') && file.mimetype.startsWith('image/')) {
     prefix = 'users/'

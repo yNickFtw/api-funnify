@@ -29,4 +29,10 @@ export default class UserRepository implements IUserRepository {
     return user as unknown as IUser
   }
 
+  public async changeProfileImage(userId: number, profileImage: string, profileImageFilename: string): Promise<void> {
+    await User.update({ profileImage, profileImageFilename }, { where: { id: userId } })
+
+    return
+  }
+
 }

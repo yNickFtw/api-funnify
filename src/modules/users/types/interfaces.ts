@@ -6,4 +6,5 @@ export interface IUserRepository {
   findByEmail: (email: string) => Promise<IUser | undefined>
   findByUsername: (username: string) => Promise<IUser | undefined>
   findById: (userId: number) => Promise<IUser | undefined>
+  changeProfileImage: (userId: number, profileImage: string, profileImageFilename: string) => Promise<void>
 }

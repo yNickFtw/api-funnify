@@ -1,8 +1,9 @@
 export interface IPost {
   id?: number;
   title?: string;
-  imageUrl?: string;
-  imageFilename?: string;
-  videoUrl?: string;
-  videoFilename?: string;
+  imageUrl?: string | null
+  imageFilename?: string | null
+  videoUrl?: string | null
+  videoFilename?: string | null
+  userId?: number
 }
