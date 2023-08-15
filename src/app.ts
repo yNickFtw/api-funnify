@@ -22,12 +22,12 @@ associaton.init(() => {
   sequelize.sync({ force: false })
   .then(() => {
     console.log("Connection has been estabilished with successfully🚀🚀");
+
+    app.listen(port, () => {
+      console.log("🚀API RUNNING🚀")
+    })    
   })
   .catch((err) => {
     console.log("Wops! Something went wrong: " + err);
   })
-})
-
-app.listen(port, () => {
-  console.log("🚀API RUNNING🚀")
 })

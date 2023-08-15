@@ -12,7 +12,7 @@ const authenticateUserController = new AuthenticateUserController();
 const loggedUserController = new LoggedUserController();
 const changeProfileImageController = new ChangeProfileImageController();
 
-export class UserRouter {
+class UserRouter {
   userRouter: Router;
 
   constructor() {
@@ -23,7 +23,7 @@ export class UserRouter {
     this.userRouter.post('/change/image/profile', checkIfIsAuthenticate, uploadMiddleware, uploadFile, changeProfileImageController.execute)
   }
 
-  public getRouter() {
+  public execute() {
     return this.userRouter;
   }
 }
