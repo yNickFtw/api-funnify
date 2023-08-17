@@ -26,6 +26,8 @@ export default class CreatePostService implements ICreatePostService, IAppError 
   public async execute({ title, imageUrl, imageFilename, videoUrl, videoFilename, userId }: Partial<IPost>): Promise<void> {
     const user = await this.userRepository.findById(userId!)
 
+    console.log(title)
+
     if(!user) {
       const error: IAppError = {
         statusCode: 400,

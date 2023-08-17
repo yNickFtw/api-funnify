@@ -5,7 +5,7 @@ import { ILikeRepository } from "../types/interfaces";
 import { IUser } from "../../users/types/user.interface";
 
 export interface IListAllLikesIdService {
-  execute: (userId: number) => Promise<string[]>
+  execute: (userId: number) => Promise<number[]>
 }
 
 @injectable()
@@ -23,7 +23,7 @@ export default class ListAllLikesIdService implements IListAllLikesIdService, IA
     this.message = ""
   }
   
-  public async execute(userId: number): Promise<string[]> {
+  public async execute(userId: number): Promise<number[]> {
     const user: IUser | undefined = await this.userRepository.findById(userId)
 
     if(!user) {
@@ -33,14 +33,13 @@ export default class ListAllLikesIdService implements IListAllLikesIdService, IA
       }
 
       throw error;
-    
     }
 
     const likesArrayObject = await this.likeRepository.listAllLikesId(userId)
 
-    let likedIdsArray: string[] = []
+    let likedIdsArray: number[] = []
 
-    const ids = likesArrayObject.forEach((liked: any) => {
+    likesArrayObject.forEach((liked: any) => {
       likedIdsArray.push(liked.postId)
     })
 

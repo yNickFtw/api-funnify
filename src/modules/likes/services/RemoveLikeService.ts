@@ -18,9 +18,9 @@ export default class RemoveLikeService implements IRemoveLikeService, IAppError 
   constructor(
     @inject("UserRepository")
     private userRepository: IUserRepository,
-    @inject("likeRepository")
+    @inject("LikeRepository")
     private likeRepository: ILikeRepository,
-    @inject("postRepository")
+    @inject("PostRepository")
     private postRepository: IPostRepository,
     ) {
     this.statusCode = 400;

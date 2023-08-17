@@ -19,7 +19,7 @@ app.use(routes)
 const port = process.env.PORT
 
 associaton.init(() => {
-  sequelize.sync({ force: false })
+  sequelize.sync({ force: true })
   .then(() => {
     console.log("Connection has been estabilished with successfully🚀🚀");
 

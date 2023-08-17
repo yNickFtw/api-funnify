@@ -13,6 +13,10 @@ export default class CreatePostController implements IController {
 
       const createPostService = container.resolve(CreatePostService);
 
+      if(!req.body.title) {
+        return res.status(400).json({ message: "Adicione uma descrição" })
+      }
+
       if (!req.file && !req.body.title) {
         return res.status(400).json({ message: "Você precisa adicionar alguma imagem ou vídeo!" });
       }

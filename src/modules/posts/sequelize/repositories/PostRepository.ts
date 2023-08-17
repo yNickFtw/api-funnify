@@ -1,7 +1,9 @@
+import { Sequelize } from "sequelize";
 import { IPostRepository } from "../../types/interfaces";
 import { IPost } from "../../types/post.interface";
 import { Post } from "../entities/Post";
 import { User } from "../../../users/sequelize/entities/User";
+import { Like } from "../../../likes/sequelize/entities/Like";
 
 export default class PostRepository implements IPostRepository {
   public async create({
@@ -34,6 +36,7 @@ export default class PostRepository implements IPostRepository {
 
   public async findAll(): Promise<IPost[]> {
     const posts = await Post.findAll({
+      order: [["createdAt", "DESC"]],
       include: [
         {
           model: User,
@@ -48,7 +51,21 @@ export default class PostRepository implements IPostRepository {
             ],
           },
         },
+        {
+          model: Like,
+          attributes: ["userId"],
+        },
       ],
+      attributes: {
+        include: [
+          [
+            Sequelize.literal(`
+              (SELECT COUNT(*) FROM likes WHERE likes.postId = posts.id)
+            `),
+            "likesCount",
+          ],
+        ],
+      },
     });
 
     return posts as unknown as IPost[];

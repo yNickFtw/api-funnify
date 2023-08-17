@@ -15,7 +15,7 @@ export default class ListAllController implements IController {
       if (error.message && error.statusCode) {
         return res.status(error.statusCode).json({ message: error.message });
       } else {
-        return res.status(500).json({ message: "Ocorreu um erro interno no servidor!" });
+        return res.status(500).json({ message: error.message });
       }
     }
   }
