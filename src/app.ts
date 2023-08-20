@@ -25,7 +25,7 @@ associaton.init(() => {
 
     app.listen(port, () => {
       console.log("🚀API RUNNING🚀")
-    })    
+    })
   })
   .catch((err) => {
     console.log("Wops! Something went wrong: " + err);

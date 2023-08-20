@@ -24,13 +24,9 @@ const User = database.define('users', {
     type: DataTypes.TEXT()
   },
   profileImage: {
-    type: DataTypes.STRING(),
+    type: DataTypes.TEXT("long"),
     allowNull: true
   },
-  profileImageFilename: {
-    type: DataTypes.STRING(),
-    allowNull: true
-  }
 })
 
 export { User }

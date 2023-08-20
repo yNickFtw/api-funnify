@@ -3,6 +3,8 @@ import { checkIfIsAuthenticate } from "../../../shared/middlewares/CheckIfUserIs
 
 import CreateCommentController from "../controllers/CreateCommentController";
 const createCommentController = new CreateCommentController()
+import ListAllCommentsByPostIdController from "../controllers/ListAllCommentsByPostIdController";
+const listAllCommentsByPostIdController = new ListAllCommentsByPostIdController()
 
 export default class CommentRouter {
   commentRouter: Router;
@@ -10,6 +12,7 @@ export default class CommentRouter {
   constructor() {
     this.commentRouter = Router()
     this.commentRouter.post('/add/:id', checkIfIsAuthenticate, createCommentController.execute)
+    this.commentRouter.get('/list/all/:id', checkIfIsAuthenticate, listAllCommentsByPostIdController.execute)
   }
 
   public execute() {

@@ -3,6 +3,7 @@ import { Post } from "../modules/posts/sequelize/entities/Post";
 import { User } from "../modules/users/sequelize/entities/User";
 import { Comment } from "../modules/comments/sequelize/entities/Comment";
 import { LikeComment } from "../modules/comments/sequelize/entities/LikeComment";
+import { Relationship } from "../modules/relationships/sequelize/entities/Relationship";
 
 class AssociationConfig {
   public init(cb: Function) {
@@ -27,6 +28,16 @@ class AssociationConfig {
     Comment.hasMany(LikeComment)
     LikeComment.belongsTo(Comment)
     
+    Relationship.belongsTo(User, {
+      foreignKey: "userId",
+      as: "follower"
+    })
+
+    Relationship.belongsTo(User, {
+      foreignKey: "followedUserId",
+      as: "followedUser"
+    })
+
     cb()
   }
 }
